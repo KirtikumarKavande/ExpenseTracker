@@ -36,6 +36,7 @@ const Login = () => {
         if (data.idToken) {
           setIsSignIn(true);
           ctxData.getTokenFunc(data.idToken);
+          localStorage.setItem('email',data.email)
           navigate("/dashboard")
         } else {
           setIsError(true);

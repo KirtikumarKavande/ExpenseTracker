@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import Login from "./components/pages/Login";
 import Layout from "./components/pages/Layout";
+import Profile from "./components/pages/Profile/Profile";
 
 export default function App() {
 const myRouter=createBrowserRouter([{
@@ -26,6 +27,10 @@ const myRouter=createBrowserRouter([{
     {
       path:'/dashboard',
       element:<Layout/>
+    },
+    {
+      path:'/profile',
+      element:<Profile/>
     },
     
 
