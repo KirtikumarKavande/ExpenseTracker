@@ -25,9 +25,9 @@ const Navbar = () => {
           Expense Tracker
         </div>
         <div className="md:flex md:space-x-4 inset-0 -translate-x-96 absolute w-fit md:w-full md:static md:-translate-x-0 text-black font-medium md:items-center md:ml-6">
-          <div>Home</div>
+          <Link to='/'>Home</Link>
           <Link to="/signUp">SIGN UP</Link >
-          <div>windows</div>
+          <Link to='/login'>Sign In</Link>
           <div>Surface</div>
           <div>Xbox</div>
           <div>Support</div>

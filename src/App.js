@@ -1,9 +1,10 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Root from "./components/Root";
-import Home from "./components/Home";
+import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import Login from "./components/pages/Login";
+import Layout from "./components/pages/Layout";
 
 export default function App() {
 const myRouter=createBrowserRouter([{
@@ -15,13 +16,19 @@ const myRouter=createBrowserRouter([{
       element:<Home/>
     },
     {
-      path:'signUp',
+      path:'/signUp',
       element:<SignUp/>
     },
     {
-      path:'login',
+      path:'/login',
       element:<Login/>
-    }
+    },
+    {
+      path:'/dashboard',
+      element:<Layout/>
+    },
+    
+
   ]
 }])
   return (
