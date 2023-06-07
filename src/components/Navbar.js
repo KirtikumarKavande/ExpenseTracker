@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -23,9 +24,9 @@ const Navbar = () => {
         <div className="text-4xl font-bold  ml-3 md:mt-1 md:ml-2 text-white">
           Expense Tracker
         </div>
-        <div className="md:flex md:space-x-2 inset-0 -translate-x-96 absolute w-fit md:w-auto md:static md:-translate-x-0 text-black font-medium md:items-center md:ml-6">
+        <div className="md:flex md:space-x-4 inset-0 -translate-x-96 absolute w-fit md:w-full md:static md:-translate-x-0 text-black font-medium md:items-center md:ml-6">
           <div>Home</div>
-          <div>office</div>
+          <Link to="/signUp">SIGN UP</Link >
           <div>windows</div>
           <div>Surface</div>
           <div>Xbox</div>
