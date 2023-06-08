@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react";
 import AuthCtx from "../../context/AuthContext";
 
 const Form = () => {
-  const ctxdata= useContext(AuthCtx)
+  const ctxdata = useContext(AuthCtx);
   const nameRef = useRef();
   const photo = useRef();
   const handleSubmit = (e) => {
@@ -14,24 +14,49 @@ const Form = () => {
       displayName,
       photoUrl,
     };
-    fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y',
-    {
-        method: 'POST',
-        body:JSON.stringify({...obj,idToken:ctxdata.token,returnSecureToken:true})
-    }
-    ).then((res)=>{
-       res.json().then((data)=>{
-       const newObj={
-          name:data.displayName,
-          imgUrl:data.photoUrl,
-          email:data.email
-        }
-        console.log(data)
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          ...obj,
+          idToken: ctxdata.token,
+          returnSecureToken: true,
+        }),
+      }
+    ).then((res) => {
+      res.json().then((data) => {
+        fetch(
+          "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              idToken: ctxdata.token,
+            }),
+          }
+        ).then((res) => {
+          res.json().then((payload) => {
+            console.log('users array',payload.users);
+            const newObj = {
+              name: payload.users[0].displayName,
+              imgUrl: payload.users[0].photoUrl,
+              email: payload.users[0].email,
+            };
+            // console.log(data);
+    
+            ctxdata.getProfileInfo(newObj);
+          });
+        });
 
-      ctxdata.getProfileInfo(newObj)
-
-       })
-    })
+       
+      });
+    });
   };
   return (
     <form
