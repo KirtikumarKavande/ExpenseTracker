@@ -47,8 +47,8 @@ const Form = () => {
               name: payload.users[0].displayName,
               imgUrl: payload.users[0].photoUrl,
               email: payload.users[0].email,
+              verifiedEmail:payload.users[0].emailVerified
             };
-            // console.log(data);
     
             ctxdata.getProfileInfo(newObj);
           });
@@ -78,6 +78,7 @@ const Form = () => {
             id="inline-full-name"
             type="text"
             ref={nameRef}
+            required
           />
         </div>
       </div>
@@ -97,6 +98,7 @@ const Form = () => {
             type="text"
             placeholder="url"
             ref={photo}
+            required
           />
         </div>
       </div>

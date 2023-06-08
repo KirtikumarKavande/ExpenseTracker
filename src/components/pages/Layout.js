@@ -2,7 +2,7 @@ import React from 'react'
 
 const Layout = () => {
   return (
-    <div>Welcome TO EXPENSE TRACKER</div>
+    <span className='flex flex-row-reverse inset-0 text-xs mr-[12px] '>Your Email is not Verified verify </span>
   )
 }
 

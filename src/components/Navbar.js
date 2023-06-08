@@ -10,7 +10,9 @@ const Navbar = () => {
           <div className="h-0.5 w-6 bg-black my-1"></div>
           <div className="h-0.5 w-6 bg-black my-1"></div>
         </div>
-        <div className="search md:hidden w-8 ml-2"><img src="img/search.png" /></div>
+        <div className="search md:hidden w-8 ml-2">
+          <img src="img/search.png" />
+        </div>
       </div>
 
       <div className="md:order-1 flex">
@@ -25,17 +27,21 @@ const Navbar = () => {
           Expense Tracker
         </div>
         <div className="md:flex md:space-x-4 inset-0 -translate-x-96 absolute w-fit md:w-full md:static md:-translate-x-0 text-black font-medium md:items-center md:ml-6">
-          <Link to='/'>Home</Link>
-          <Link to="/signUp">SIGN UP</Link >
-          <Link to='/login'>Sign In</Link>
-          <Link to='/profile'>Profile</Link>
-          <div>Xbox</div>
+          <Link to="/">Home</Link>
+          <Link to="/dashboard">Dashboard</Link>
+
+          <Link to="/signUp">SIGN UP</Link>
+          <Link to="/login">Sign In</Link>
+          <Link to="/profile">Profile</Link>
+
           <div>Support</div>
         </div>
       </div>
 
       <div className="md:order-3 flex items-center">
-        <div className="search  hidden md:block w-8 mr-2 "><img src="img/search.png" /></div>
+        <div className="search  hidden md:block w-8 mr-2 ">
+          <img src="img/search.png" />
+        </div>
       </div>
     </div>
   );

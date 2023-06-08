@@ -6,12 +6,15 @@ const AuthContextProvider = (props) => {
   const img = localStorage.getItem("image");
   const localEmail=localStorage.getItem("email");
   const localName = localStorage.getItem("name");
-
+  const isVerifiedEmail= localStorage.getItem('verifiedEmail')
+  
   const [token, setToken] = useState(localToken);
   const [profileInfo, setProfileInfo] = useState({
     name: !!!localName ? "username" : localName,
     imgUrl: !!!img ? "img/Profile.png" : img,
-    email:!!!localEmail?"example@example.com":localEmail
+    email:!!!localEmail?"example@example.com":localEmail,
+    verifiedEmail:!!isVerifiedEmail&& isVerifiedEmail===String(true)?true:false
+    
   });
   const getTokenFunc = (token) => {
     setToken(token);
@@ -21,6 +24,7 @@ const AuthContextProvider = (props) => {
     localStorage.setItem("image", info.imgUrl);
     localStorage.setItem('name',info.name)
     localStorage.setItem('email',info.email)
+    localStorage.setItem('verifiedEmail',info.verifiedEmail)
 
     setProfileInfo(info);
   };
