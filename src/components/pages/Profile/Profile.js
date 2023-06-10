@@ -61,8 +61,8 @@ const Profile = () => {
           title="Woman holding a mug"
         >
           <img
-            className="h-[14rem] w-[9.5rem] md: m-auto"
-            src={ctxData?.profileInfo?.imgUrl}
+            className="h-[17rem] w-[12.5rem] md: m-auto"
+            src={ctxData?.profileInfo?.imgUrl} alt="profile"
           />
         </div>
         <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
@@ -85,7 +85,7 @@ const Profile = () => {
               Email:{ctxData?.profileInfo?.email}
             </div>
             <div>
-              {ctxData.profileInfo.verifiedEmail ? (
+              {ctxData?.profileInfo?.verifiedEmail ? (
                 <div>
                   <span>Email is Verified </span>
                   <img

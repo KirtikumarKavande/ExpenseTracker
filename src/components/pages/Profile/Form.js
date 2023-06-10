@@ -38,6 +38,7 @@ const Form = () => {
     e.preventDefault();
     const displayName = nameRef.current.value;
     const photoUrl = photo.current.value;
+   
 
     const obj = {
       displayName,
@@ -61,7 +62,8 @@ const Form = () => {
        console.log('imp data',data)
        const obj={
         name:data?.providerUserInfo[0].displayName,
-        imgUrl:data?.providerUserInfo[0].photoUrl
+        imgUrl:data?.providerUserInfo[0].photoUrl,
+        verifiedEmail:data?.providerUserInfo[0].photoUrl.emailVerified
        }
       ctxdata?.getProfileInfo(obj)
       });

@@ -4,7 +4,7 @@ import Root from "./components/Root";
 import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import Login from "./components/pages/Login";
-import Layout from "./components/pages/Layout";
+import Layout from "./components/pages/Dashboard/Layout";
 import Profile from "./components/pages/Profile/Profile";
 import ForgetPassword from "./components/pages/ForgetPassword";
 

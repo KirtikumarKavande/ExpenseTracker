@@ -10,10 +10,10 @@ const AuthContextProvider = (props) => {
   
   const [token, setToken] = useState(localToken);
   const [profileInfo, setProfileInfo] = useState({
-    // name: !!!localName ? "username" : localName,
-    // imgUrl: !!!img ? "img/Profile.png" : img,
-    // email:!!!localEmail?"example@example.com":localEmail,
-    // verifiedEmail:!!isVerifiedEmail&& isVerifiedEmail===String(true)?true:false
+    // name:  "username",
+    // imgUrl: "img/Profile.png" ,
+    // email:"example@example.com",
+    // verifiedEmail:false
     
   });
   const getTokenFunc = (token) => {
