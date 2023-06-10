@@ -6,6 +6,7 @@ import SignUp from "./components/pages/SignUp";
 import Login from "./components/pages/Login";
 import Layout from "./components/pages/Layout";
 import Profile from "./components/pages/Profile/Profile";
+import ForgetPassword from "./components/pages/ForgetPassword";
 
 export default function App() {
   const myRouter = createBrowserRouter([
@@ -32,6 +33,10 @@ export default function App() {
         {
           path: "/profile",
           element: <Profile />,
+        },
+        {
+          path: "/forgetPassword",
+          element: <ForgetPassword />,
         },
       ],
     },

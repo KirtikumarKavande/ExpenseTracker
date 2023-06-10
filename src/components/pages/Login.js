@@ -123,6 +123,9 @@ const Login = () => {
                     SignUp here
                   </Link>
                 </p>
+              <Link to='/forgetPassword' className="mx-auto hover:text-blue-700">Forget Password ?</Link>
+
+
               </form>
             </div>
           </div>
