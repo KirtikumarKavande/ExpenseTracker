@@ -8,39 +8,37 @@ import Layout from "./components/pages/Layout";
 import Profile from "./components/pages/Profile/Profile";
 
 export default function App() {
-const myRouter=createBrowserRouter([{
-  path:"/",
-  element:<Root/>,
-  children:[
+  const myRouter = createBrowserRouter([
     {
-      path:'/',
-      element:<Home/>
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/signUp",
+          element: <SignUp />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/dashboard",
+          element: <Layout />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+      ],
     },
-    {
-      path:'/signUp',
-      element:<SignUp/>
-    },
-    {
-      path:'/login',
-      element:<Login/>
-    },
-    {
-      path:'/dashboard',
-      element:<Layout/>
-    },
-    {
-      path:'/profile',
-      element:<Profile/>
-    },
-    
-
-  ]
-}])
+  ]);
   return (
     <div>
-      <RouterProvider router={myRouter}/>
-    
-
+      <RouterProvider router={myRouter} />
     </div>
-  )
+  );
 }

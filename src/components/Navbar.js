@@ -7,6 +7,7 @@ const Navbar = () => {
   const navigate=useNavigate()
   const logOutFunc=()=>{
     localStorage.clear();
+    ctxData.getTokenFunc('')
     navigate('/login')
 
   }
