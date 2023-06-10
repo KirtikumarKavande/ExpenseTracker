@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 
-const AddExpenseForm = ({setExpense,expense}) => {
-    
+const AddExpenseForm = ({ setExpense, expense }) => {
+
+
+
+  const email = localStorage.getItem("email");
 
   const money_Spend = useRef();
   const description = useRef();
@@ -19,11 +22,23 @@ const AddExpenseForm = ({setExpense,expense}) => {
       descriptions,
       categories,
     };
-    setExpense([...expense,obj])
-    console.log('expense Added',obj);
-    money_Spend.current.value=''
-    description.current.value=''
-    category.current.value=''
+    fetch(
+      "https://expensetracker-auth-3709f-default-rtdb.firebaseio.com/ExpenseData.json",
+      {
+        method: "POST",
+        body: JSON.stringify({ ...obj, email }),
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then((res) => {
+      res.json().then((data) => {
+        console.log(data);
+      });
+    });
+    setExpense([...expense, obj]);
+    console.log("expense Added", obj);
+    money_Spend.current.value = "";
+    description.current.value = "";
+    category.current.value = "";
   };
 
   return (
@@ -68,7 +83,10 @@ const AddExpenseForm = ({setExpense,expense}) => {
         </select>
 
         <div className="flex justify-between items-center my-4">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4"
+          >
             Add Expense
           </button>
         </div>
