@@ -1,10 +1,39 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import AuthCtx from "../../context/AuthContext";
 
 const Form = () => {
   const ctxdata = useContext(AuthCtx);
   const nameRef = useRef();
   const photo = useRef();
+
+
+
+  useEffect(()=>{
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          idToken: ctxdata.token,
+        }),
+      }
+    ).then((res) => {
+      res.json().then((payload) => {
+        console.log("users array", payload.users);
+        const newObj = {
+          name: payload?.users[0]?.displayName,
+          imgUrl: payload?.users[0]?.photoUrl,
+          email: payload?.users[0]?.email,
+          verifiedEmail: payload?.users[0]?.emailVerified,
+        };
+
+        ctxdata.getProfileInfo(newObj);
+      });
+    });
+  },[])
   const handleSubmit = (e) => {
     e.preventDefault();
     const displayName = nameRef.current.value;
@@ -29,32 +58,12 @@ const Form = () => {
       }
     ).then((res) => {
       res.json().then((data) => {
-        fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              idToken: ctxdata.token,
-            }),
-          }
-        ).then((res) => {
-          res.json().then((payload) => {
-            console.log('users array',payload.users);
-            const newObj = {
-              name: payload.users[0].displayName,
-              imgUrl: payload.users[0].photoUrl,
-              email: payload.users[0].email,
-              verifiedEmail:payload.users[0].emailVerified
-            };
-    
-            ctxdata.getProfileInfo(newObj);
-          });
-        });
-
-       
+       console.log('imp data',data)
+       const obj={
+        name:data?.providerUserInfo[0].displayName,
+        imgUrl:data?.providerUserInfo[0].photoUrl
+       }
+      ctxdata?.getProfileInfo(obj)
       });
     });
   };
