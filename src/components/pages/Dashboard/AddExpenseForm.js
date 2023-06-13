@@ -33,8 +33,9 @@ const AddExpenseForm = ({ setExpense, expense }) => {
       res.json().then((data) => {
         console.log(data);
       });
-    });
+    }); 
     setExpense([...expense, obj]);
+   
     console.log("expense Added", obj);
     money_Spend.current.value = "";
     description.current.value = "";

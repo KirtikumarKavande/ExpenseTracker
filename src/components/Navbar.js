@@ -1,13 +1,18 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthCtx from "./context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/AuthReducer";
 
 const Navbar = () => {
+ const token=useSelector(state=>state.auth.token)
+  const dispatch=useDispatch()
   const ctxData = useContext(AuthCtx);
   const navigate = useNavigate();
   const logOutFunc = () => {
     localStorage.clear();
-    ctxData.getTokenFunc("");
+    dispatch(authActions.logout())
+    // ctxData.getTokenFunc("");
     navigate("/login");
   };
   return (
@@ -78,19 +83,26 @@ const Navbar = () => {
         <Link to="/">Home</Link>
        
        
-        {ctxData.token && <Link to="/dashboard">Dashboard</Link>}
+        {!!token && <Link to="/dashboard">Dashboard</Link>}
        
        
-        {!!!ctxData.token && <Link to="/signUp">SIGN UP</Link>}
+        {!!!token && <Link to="/signUp">SIGN UP</Link>}
        
        
-        {!!!ctxData.token && <Link to="/login">Sign In</Link>}
+        {!!!token && <Link to="/login">Sign In</Link>}
        
        
-        {!!ctxData.token && <Link to="/profile">Profile</Link>}
+        {!!token && <Link to="/profile">Profile</Link>}
+       {!!token && <button
+              className="p-1 bg-red-500 rounded-md relative right-[23px] mr-6"
+             onClick={logOutFunc}
+          >
+              Logout
+            </button>}
        
       </ul>
     </div>
+    
   </div>
 </nav>
 

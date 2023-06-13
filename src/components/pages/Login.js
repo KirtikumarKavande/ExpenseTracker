@@ -2,9 +2,15 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert, { SuccessAlert } from "../../Utlities/constant";
 import AuthCtx from "../context/AuthContext";
+import { authActions } from "../../store/AuthReducer";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch=useDispatch()
+         
   const ctxData = useContext(AuthCtx);
+
+  
   console.log(ctxData);
   const navigate = useNavigate();
   const emailRef = useRef();
@@ -35,7 +41,9 @@ const Login = () => {
       res.json().then((data) => {
         if (data.idToken) {
           setIsSignIn(true);
-          ctxData.getTokenFunc(data.idToken);
+          dispatch(authActions.login(data.idToken))
+          // ctxData.getTokenFunc(data.idToken);
+          localStorage.setItem("token",data.idToken)
           localStorage.setItem("email", data.email);
           navigate("/dashboard");
         } else {

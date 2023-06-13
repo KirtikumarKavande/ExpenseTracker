@@ -21,7 +21,7 @@ const Layout = () => {
             moneyRs: data[key].moneyRs,
           });
         }
-        setExpense(updatedArray)
+        setExpense(updatedArray);
       });
     });
   }, []);
@@ -32,7 +32,7 @@ const Layout = () => {
         Your Email is not Verified verify Link
       </span>
       <AddExpenseForm setExpense={setExpense} expense={expense} />
-      {expense.length > 0 && <ExpenseShowTable expense={expense} />}
+      {expense.length > 0 && <ExpenseShowTable setExpense={setExpense} expense={expense} />}
     </div>
   );
 };
