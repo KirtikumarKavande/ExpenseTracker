@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 
-const AddExpenseForm = ({ setExpense, expense }) => {
+const AddExpenseForm = ({ setExpense, expense,setPremium }) => {
 
 
 
@@ -16,12 +16,16 @@ const AddExpenseForm = ({ setExpense, expense }) => {
     const moneyRs = money_Spend.current.value;
     const descriptions = description.current.value;
     const categories = category.current.value;
-
+if(moneyRs>10000)
+{
+  setPremium(true)
+}
     const obj = {
       moneyRs,
       descriptions,
       categories,
     };
+   
     fetch(
       "https://expensetracker-auth-3709f-default-rtdb.firebaseio.com/ExpenseData.json",
       {
@@ -34,12 +38,14 @@ const AddExpenseForm = ({ setExpense, expense }) => {
         console.log(data);
       });
     }); 
+    
     setExpense([...expense, obj]);
    
     console.log("expense Added", obj);
     money_Spend.current.value = "";
     description.current.value = "";
     category.current.value = "";
+
   };
 
   return (

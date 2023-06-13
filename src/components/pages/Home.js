@@ -1,13 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Home = () => {
-  return (
-    <div>
+  return <div>Welcome to Expense Tracker</div>;
+};
 
-Welcome to Expense Tracker
-        
-    </div>
-  )
-}
-
-export default Home
+export default Home;
