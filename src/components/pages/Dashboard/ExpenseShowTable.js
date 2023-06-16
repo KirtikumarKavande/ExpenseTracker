@@ -4,14 +4,14 @@ import { getEditData } from "../../../store/EditDataReducer";
 
 const ExpenseShowTable = ({
   expense,
- 
+
   setShowEditButton,
-  setExpense
+  setExpense,
 }) => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.expense.expenseFromDb);
-  console.log("final data",data)
+  console.log("final data", data);
 
   const deleteHandler = (id) => {
     const updatedArray = expense.filter((obj) => {
@@ -26,11 +26,10 @@ const ExpenseShowTable = ({
     );
   };
   const editHandler = (item) => {
-
     setShowEditButton(true);
     dispatch(getEditData(item));
   };
-  console.log('data not func',data)
+  console.log("data not func", data);
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-9 m-6">
@@ -56,7 +55,7 @@ const ExpenseShowTable = ({
           </thead>
           <tbody>
             {data?.map((item) => {
-              if (item.moneyRs < 1000 ) {
+              if (item.moneyRs < 1000) {
                 return (
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <td class="px-6 py-4">{item?.categories}</td>
@@ -69,7 +68,7 @@ const ExpenseShowTable = ({
                           editHandler(item);
                         }}
                       >
-                      <img src="img/Edit.png" alt="edit"/>
+                        <img src="img/Edit.png" alt="edit" />
                       </button>
                     </td>
                     <td class="px-6 py-4">
@@ -78,8 +77,7 @@ const ExpenseShowTable = ({
                           deleteHandler(item?.id);
                         }}
                       >
-                                            <img src="img/delete.png" alt="delete"/>
-
+                        <img src="img/delete.png" alt="delete" />
                       </button>
                     </td>
                   </tr>
