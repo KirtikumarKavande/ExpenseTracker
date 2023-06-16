@@ -1,19 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect,  } from "react";
 import AddExpenseForm from "./AddExpenseForm";
 import ExpenseShowTable from "./ExpenseShowTable";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { expenseAction } from "../../../store/ExpenseReducer";
 import Modal from "../../../Modal";
-
+import { themeAction } from "../../../store/themeReducer";
 
 const Layout = () => {
+  const [showEditButton, setShowEditButton] = useState(false);
   const dispatch = useDispatch();
+  const darkTheme = useSelector((state) => state.theme.darkTheme);
+  const [statusOfPremium, setStatusOfPremium] = useState(false);
+
+  // const[darkTheme,setDarkTheme] =useState(false)
 
   const [expense, setExpense] = useState([]);
   const [premium, setPremium] = useState(false);
   const [modal, setModal] = useState(false);
-  const[activatedPremium,setActivatedPremium] = useState(false);
+  const dataActivated = (item) => {
+    setStatusOfPremium(item);
+  };
+  // const dataActivated = useCallback((item) => {
+  //   setStatusOfPremium(item);
+  // }, [statusOfPremium]);
 
   useEffect(() => {
     fetch(
@@ -33,30 +43,35 @@ const Layout = () => {
         setExpense(updatedArray);
       });
     });
-    // console.log('===================',expense)
   }, []);
+  console.log(expense);
 
   dispatch(expenseAction.getExpense(expense));
 
   return (
- 
     <div className="relative bg-indigo-200 min-h-screen">
-         <div>
-      <span className="flex flex-row-reverse  text-xs   ">
-        Your Email is not Verified verify Link
-      </span>
-      {modal && (
-       <Modal setModal={setModal}/>
-      )}
+      <div>
+        <span className="flex flex-row-reverse  text-xs   ">
+          Your Email is not Verified verify Link
+        </span>
+        {modal && <Modal setModal={setModal} dataActivated={dataActivated} />}
 
-      <AddExpenseForm
-        setExpense={setExpense}
-        expense={expense}
-        setPremium={setPremium}
-      />
-      {expense.length > 0 && (
-        <ExpenseShowTable setExpense={setExpense} expense={expense} />
-      )}
+        <AddExpenseForm
+          expense={expense}
+            setExpense={setExpense}
+
+          setPremium={setPremium}
+          showEditButton={showEditButton}
+          setShowEditButton={setShowEditButton}
+        />
+        {expense.length > 0 && (
+          <ExpenseShowTable
+            setExpense={setExpense}
+            expense={expense}
+            setShowEditButton={setShowEditButton}
+            activatedPremium={statusOfPremium}
+          />
+        )}
       </div>
       {premium && (
         <button
@@ -69,10 +84,20 @@ const Layout = () => {
         </button>
       )}
 
+      {statusOfPremium && (
+        <>
+          <button
+            className="p-1 bg-blue-500"
+            onClick={dispatch(themeAction.themeChange())}
+          >
+            {darkTheme ? "Dark Theme" : "light Theme"}
+          </button>
 
-      {
-        activatedPremium && <button>dark Theme</button>
-      }
+          <button className="p-1 bg-blue-300 text-center">
+            Download Expenses
+          </button>
+        </>
+      )}
     </div>
   );
 };

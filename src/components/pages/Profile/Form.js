@@ -6,9 +6,7 @@ const Form = () => {
   const nameRef = useRef();
   const photo = useRef();
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
       {
@@ -22,7 +20,6 @@ const Form = () => {
       }
     ).then((res) => {
       res.json().then((payload) => {
-        console.log("users array", payload.users);
         const newObj = {
           name: payload?.users[0]?.displayName,
           imgUrl: payload?.users[0]?.photoUrl,
@@ -33,12 +30,11 @@ const Form = () => {
         ctxdata.getProfileInfo(newObj);
       });
     });
-  },[])
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     const displayName = nameRef.current.value;
     const photoUrl = photo.current.value;
-   
 
     const obj = {
       displayName,
@@ -59,13 +55,12 @@ const Form = () => {
       }
     ).then((res) => {
       res.json().then((data) => {
-       console.log('imp data',data)
-       const obj={
-        name:data?.providerUserInfo[0].displayName,
-        imgUrl:data?.providerUserInfo[0].photoUrl,
-        verifiedEmail:data?.providerUserInfo[0].photoUrl.emailVerified
-       }
-      ctxdata?.getProfileInfo(obj)
+        const obj = {
+          name: data?.providerUserInfo[0].displayName,
+          imgUrl: data?.providerUserInfo[0].photoUrl,
+          verifiedEmail: data?.providerUserInfo[0].photoUrl.emailVerified,
+        };
+        ctxdata?.getProfileInfo(obj);
       });
     });
   };

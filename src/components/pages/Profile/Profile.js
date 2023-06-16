@@ -8,7 +8,6 @@ const Profile = () => {
   const [issuccess, setIsSuccess] = useState(false);
   const [isshow, setIsShow] = useState(false);
   const ctxData = useContext(AuthCtx);
-  console.log("ctx data", ctxData);
 
   const date = new Date();
 
@@ -35,7 +34,6 @@ const Profile = () => {
       }
     );
     const json = await data.json();
-    console.log("verify email", json);
   };
 
   useEffect(() => {

@@ -31,7 +31,6 @@ try{
         if(res.ok){
             setSuccess(true);
             res.json().then((data) => {
-              console.log("reset Password", data);
             });
         }else{
             setAlert(true)

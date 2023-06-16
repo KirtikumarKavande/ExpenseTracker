@@ -11,7 +11,6 @@ const Login = () => {
   const ctxData = useContext(AuthCtx);
 
   
-  console.log(ctxData);
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();

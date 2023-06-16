@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getEditData } from "../../../store/EditDataReducer";
 
-const ExpenseShowTable = ({ expense, setExpense }) => {
+const ExpenseShowTable = ({
+  expense,
+  activatedPremium,
+  setShowEditButton,
+  setExpense
+}) => {
+  const dispatch = useDispatch();
 
   const data = useSelector((state) => state.expense.expenseFromDb);
-  console.log("expense", data);
-
- 
+  console.log("final data",data)
 
   const deleteHandler = (id) => {
     const updatedArray = expense.filter((obj) => {
@@ -20,7 +25,12 @@ const ExpenseShowTable = ({ expense, setExpense }) => {
       }
     );
   };
-  // console.log("expense", expense);
+  const editHandler = (item) => {
+
+    setShowEditButton(true);
+    dispatch(getEditData(item));
+  };
+  console.log('data not func',data)
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-9 m-6">
@@ -46,7 +56,7 @@ const ExpenseShowTable = ({ expense, setExpense }) => {
           </thead>
           <tbody>
             {data?.map((item) => {
-              if (item.moneyRs < 1000) {
+              if (item.moneyRs < 1000 || activatedPremium) {
                 return (
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <td class="px-6 py-4">{item?.categories}</td>
@@ -54,7 +64,13 @@ const ExpenseShowTable = ({ expense, setExpense }) => {
 
                     <td class="px-6 py-4">{item?.descriptions}</td>
                     <td class="px-6 py-4">
-                      <button>Edit</button>
+                      <button
+                        onClick={() => {
+                          editHandler(item);
+                        }}
+                      >
+                        Edit
+                      </button>
                     </td>
                     <td class="px-6 py-4">
                       <button

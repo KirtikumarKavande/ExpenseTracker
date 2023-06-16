@@ -37,7 +37,6 @@ const SignUp = () => {
         });
       });
 
-      console.log(obj);
     } else {
       setIsError(true);
     }
