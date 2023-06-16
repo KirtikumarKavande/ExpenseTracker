@@ -69,7 +69,7 @@ const ExpenseShowTable = ({
                           editHandler(item);
                         }}
                       >
-                        Edit
+                      <img src="img/Edit.png" alt="edit"/>
                       </button>
                     </td>
                     <td class="px-6 py-4">
@@ -78,7 +78,8 @@ const ExpenseShowTable = ({
                           deleteHandler(item?.id);
                         }}
                       >
-                        Delete
+                                            <img src="img/delete.png" alt="delete"/>
+
                       </button>
                     </td>
                   </tr>

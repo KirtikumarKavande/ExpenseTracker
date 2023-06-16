@@ -86,18 +86,19 @@ const Layout = () => {
       )}
 
       {statusOfPremium && (
-        <>
+        <div className=" mx-[20%] md:mx-[30%] lg:mx-[40%]">
           <button
-            className="p-1 bg-blue-500"
+            className="p-1 bg-green-500 rounded-lg mr-5 "
             onClick={()=>{dispatch(themeAction.themeChange())}}
+            p-r
           >
-            {darkTheme ? "Dark Theme" : "light Theme"}
+            {darkTheme ? "Dark Theme " : "Light Theme"}
           </button>
 
-          <button className="p-1 bg-blue-300 text-center">
-            Download Expenses
+          <button className="p-1 bg-red-300 text-center rounded-lg w-fit">
+            <img src="img/download.png" className="m-auto inline-block h-[1rem]" alt="download"/> Expenses
           </button>
-        </>
+        </div>
       )}
     </div>
   );
