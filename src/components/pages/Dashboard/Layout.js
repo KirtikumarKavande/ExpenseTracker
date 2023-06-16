@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect,  } from "react";
+import React, { useCallback, useEffect } from "react";
 import AddExpenseForm from "./AddExpenseForm";
 import ExpenseShowTable from "./ExpenseShowTable";
 import { useState } from "react";
@@ -8,19 +8,21 @@ import Modal from "../../../Modal";
 import { themeAction } from "../../../store/themeReducer";
 
 const Layout = () => {
+ const activatedStatus=Boolean(localStorage.getItem("premium"))
+
   const [showEditButton, setShowEditButton] = useState(false);
   const dispatch = useDispatch();
   const darkTheme = useSelector((state) => state.theme.darkTheme);
-  const [statusOfPremium, setStatusOfPremium] = useState(false);
+  const [statusOfPremium, setStatusOfPremium] = useState(activatedStatus);
 
   // const[darkTheme,setDarkTheme] =useState(false)
 
   const [expense, setExpense] = useState([]);
   const [premium, setPremium] = useState(false);
   const [modal, setModal] = useState(false);
-  const dataActivated = (item) => {
-    setStatusOfPremium(item);
-  };
+  // const dataActivated = (item) => {
+  //   setStatusOfPremium(item);
+  // };
   // const dataActivated = useCallback((item) => {
   //   setStatusOfPremium(item);
   // }, [statusOfPremium]);
@@ -49,17 +51,16 @@ const Layout = () => {
   dispatch(expenseAction.getExpense(expense));
 
   return (
-    <div className="relative bg-indigo-200 min-h-screen">
+    <div className="relative  min-h-screen">
       <div>
         <span className="flex flex-row-reverse  text-xs   ">
           Your Email is not Verified verify Link
         </span>
-        {modal && <Modal setModal={setModal} dataActivated={dataActivated} />}
+        {modal && <Modal setModal={setModal} setStatusOfPremium={setStatusOfPremium} />}
 
         <AddExpenseForm
           expense={expense}
-            setExpense={setExpense}
-
+          setExpense={setExpense}
           setPremium={setPremium}
           showEditButton={showEditButton}
           setShowEditButton={setShowEditButton}
@@ -69,7 +70,6 @@ const Layout = () => {
             setExpense={setExpense}
             expense={expense}
             setShowEditButton={setShowEditButton}
-            activatedPremium={statusOfPremium}
           />
         )}
       </div>
@@ -78,6 +78,7 @@ const Layout = () => {
           className="p-1 bg-blue-500 ml-2 rounded-md"
           onClick={() => {
             setModal(true);
+            setPremium(false)
           }}
         >
           Activate Premium
@@ -88,7 +89,7 @@ const Layout = () => {
         <>
           <button
             className="p-1 bg-blue-500"
-            onClick={dispatch(themeAction.themeChange())}
+            onClick={()=>{dispatch(themeAction.themeChange())}}
           >
             {darkTheme ? "Dark Theme" : "light Theme"}
           </button>

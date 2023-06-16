@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Modal = ({ setModal, dataActivated }) => {
-  const [activatedPremium, setActivatedPremium] = useState(false);
-
-  console.log(activatedPremium);
-
+const Modal = ({ setModal, setStatusOfPremium }) => {
   return (
     <div
       id="popup-modal"
@@ -54,8 +50,8 @@ const Modal = ({ setModal, dataActivated }) => {
             </h3>
             <button
               onClick={() => {
-                setActivatedPremium(true);
-                dataActivated(true);
+                setStatusOfPremium(true);
+                localStorage.setItem('premium',true)
                 setModal(false);
               }}
               type="button"
