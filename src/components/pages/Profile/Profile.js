@@ -16,7 +16,6 @@ const Profile = () => {
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
 
-  useEffect(() => {}, []);
 
   const verifyEmailFunc = async () => {
     setIsSuccess(true);

@@ -3,6 +3,7 @@ import AuthCtx from "../../context/AuthContext";
 
 const Form = () => {
   const ctxdata = useContext(AuthCtx);
+  console.log('token',ctxdata.token)
   const nameRef = useRef();
   const photo = useRef();
 
@@ -55,10 +56,11 @@ const Form = () => {
       }
     ).then((res) => {
       res.json().then((data) => {
+        
         const obj = {
-          name: data?.providerUserInfo[0].displayName,
-          imgUrl: data?.providerUserInfo[0].photoUrl,
-          verifiedEmail: data?.providerUserInfo[0].photoUrl.emailVerified,
+          name: data?.providerUserInfo[0]?.displayName,
+          imgUrl: data?.providerUserInfo[0]?.photoUrl,
+          verifiedEmail: data?.providerUserInfo[0]?.photoUrl.emailVerified,
         };
         ctxdata?.getProfileInfo(obj);
       });

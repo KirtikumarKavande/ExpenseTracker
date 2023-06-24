@@ -41,7 +41,7 @@ const Login = () => {
         if (data.idToken) {
           setIsSignIn(true);
           dispatch(authActions.login(data.idToken))
-          // ctxData.getTokenFunc(data.idToken);
+          ctxData.getTokenFunc(data.idToken);
           localStorage.setItem("token",data.idToken)
           localStorage.setItem("email", data.email);
           navigate("/dashboard");

@@ -4,7 +4,7 @@ import { getEditData } from "../../../store/EditDataReducer";
 
 const ExpenseShowTable = ({
   expense,
-
+  statusOfPremium,
   setShowEditButton,
   setExpense,
 }) => {
@@ -55,7 +55,7 @@ const ExpenseShowTable = ({
           </thead>
           <tbody>
             {data?.map((item) => {
-              if (item.moneyRs < 1000) {
+              if (item.moneyRs < 1000  ||statusOfPremium) {
                 return (
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <td class="px-6 py-4">{item?.categories}</td>

@@ -10,7 +10,7 @@ const Root = () => {
     <div>
 
       <Navbar />
-      <div className={`${darkTheme ? "bg-indigo-200 min-h-screen":"bg-black min-h-screen"}`}>
+      <div className={`${!darkTheme ? "bg-indigo-200 min-h-screen":"bg-black min-h-screen"}`}>
       {/* <div> */}
   
       <Outlet />

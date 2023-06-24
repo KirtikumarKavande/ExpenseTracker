@@ -107,6 +107,7 @@ const Layout = () => {
             setExpense={setExpense}
             expense={expense}
             setShowEditButton={setShowEditButton}
+            statusOfPremium={statusOfPremium}
           />
         )}
       </div>
