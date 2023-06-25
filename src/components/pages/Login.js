@@ -4,6 +4,7 @@ import Alert, { SuccessAlert } from "../../Utlities/constant";
 import AuthCtx from "../context/AuthContext";
 import { authActions } from "../../store/AuthReducer";
 import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Login = () => {
           ctxData.getEmailFunc(data.email)
           localStorage.setItem("token", data.idToken);
           localStorage.setItem("email", data.email);
-
+toast.success("Login Success")
           navigate("/dashboard");
         } else {
           setIsError(true);

@@ -9,11 +9,12 @@ import { themeAction } from "../../../store/themeReducer";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import AuthCtx from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Layout = () => {
   const activatedStatus = Boolean(localStorage.getItem("premium"));
   const data = useContext(AuthCtx);
-  console.log(" email", );
+  console.log(" email", data);
 
   const [showEditButton, setShowEditButton] = useState(false);
   const dispatch = useDispatch();
@@ -37,10 +38,12 @@ const Layout = () => {
 
   useEffect(() => {
     fetch(
-      `https://expensetracker-auth-3709f-default-rtdb.firebaseio.com/ExpenseData.json?orderBy="email"&equalTo=${JSON.stringify(data.email|| localStorage.getItem('email'))}`
+      `https://expensetracker-auth-3709f-default-rtdb.firebaseio.com/ExpenseData.json?orderBy="email"&equalTo=${JSON.stringify(
+        data.email || localStorage.getItem("email")
+      )}`
     ).then((res) => {
       res.json().then((data) => {
-        console.log("first",data)
+        console.log("first", data);
         const updatedArray = [];
 
         for (let key in data) {
@@ -58,6 +61,37 @@ const Layout = () => {
   console.log(expense);
 
   dispatch(expenseAction.getExpense(expense));
+
+  useEffect(() => {
+    console.log("payload", "useEffect rig");
+    if (data.token) {
+      fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            idToken: data.token,
+          }),
+        }
+      ).then((res) => {
+        res.json().then((payload) => {
+          console.log("payload", payload);
+
+          const newObj = {
+            name: payload?.users[0]?.displayName,
+            imgUrl: payload?.users[0]?.photoUrl,
+            email: payload?.users[0]?.email,
+            verifiedEmail: payload?.users[0]?.emailVerified,
+          };
+localStorage.setItem("avatar",payload?.users[0]?.photoUrl)
+          data.getProfileInfo(newObj);
+        });
+      });
+    }
+  }, []);
 
   const downloadHandler = () => {
     const unit = "pt";
@@ -92,9 +126,12 @@ const Layout = () => {
   return (
     <div className="relative  min-h-screen">
       <div>
-        <span className="flex flex-row-reverse  text-xs   ">
-          Your Email is not Verified verify Link
-        </span>
+        {!data.profileInfo.verifiedEmail&&(
+          <div className="flex flex-row-reverse  text-sm   ">
+            <Link className="text-blue-600 space-x-2" to="/profile">Click</Link>Email is not Verified 
+          </div>
+        )}
+
         {modal && (
           <Modal setModal={setModal} setStatusOfPremium={setStatusOfPremium} />
         )}

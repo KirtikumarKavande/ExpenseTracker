@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert, { SuccessAlert } from "../../Utlities/constant";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
   const emailRef = useRef();
@@ -33,10 +34,11 @@ const SignUp = () => {
         res.json().then((data) => {
           if (data.idToken) {
             setIsSignUp(true);
+          }else{
+            toast.error("account already registered")
           }
         });
       });
-
     } else {
       setIsError(true);
     }

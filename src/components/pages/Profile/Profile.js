@@ -35,35 +35,6 @@ const Profile = () => {
     const json = await data.json();
   };
 
-  useEffect(() => {
-    if (ctxData.token) {
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            idToken: ctxData.token,
-          }),
-        }
-      ).then((res) => {
-        res.json().then((payload) => {
-          console.log('payload',payload)
-
-          const newObj = {
-            name: payload?.users[0]?.displayName,
-            imgUrl: payload?.users[0]?.photoUrl,
-            email: payload?.users[0]?.email,
-            verifiedEmail: payload?.users[0]?.emailVerified,
-          };
-
-          ctxData.getProfileInfo(newObj);
-        });
-      });
-    }
-  }, []);
 
 
   useEffect(() => {
@@ -90,7 +61,7 @@ const Profile = () => {
         >
           <img
             className="h-[17rem] w-[12.5rem] md: m-auto"
-            src={ctxData?.profileInfo?.imgUrl} alt="profile"
+            src={ctxData?.profileInfo?.imgUrl || localStorage.getItem('avatar')||`img/profile.png`} alt="profile"
           />
         </div>
         <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
@@ -110,7 +81,7 @@ const Profile = () => {
               Kavande)
             </div>
             <div className="text-blue-500">
-              Email:{ctxData?.profileInfo?.email}
+              Email:{ctxData?.profileInfo?.email||localStorage.getItem('email')}
             </div>
             <div>
               {ctxData?.profileInfo?.verifiedEmail ? (
@@ -143,7 +114,7 @@ const Profile = () => {
 
             {!isshow && !ctxData.profileInfo.verifiedEmail && (
               <button
-                className="p-1 bg-blue-500 rounded-md mx-32 md:mx-0 lg:mx-56 "
+                className="pt-1 pb-1 bg-green-600 rounded-sm mx-32 md:mx-0 lg:mx-56 "
                 onClick={verifyEmailFunc}
               >
                 verify Email
@@ -154,7 +125,7 @@ const Profile = () => {
             <img
               className="w-10 h-10 rounded-full mr-4"
               src="img/Profile.png"
-              alt="Avatar of Jonathan Reinink"
+              alt="Avatar "
             />
             <div className="text-sm">
               <p className="text-gray-900 leading-none">

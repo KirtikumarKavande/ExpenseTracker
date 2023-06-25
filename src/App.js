@@ -9,8 +9,10 @@ import Profile from "./components/pages/Profile/Profile";
 import ForgetPassword from "./components/pages/ForgetPassword";
 import { useContext, useEffect } from "react";
 import AuthCtx from "./components/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
+  const ctxData = useContext(AuthCtx);
 
   const myRouter = createBrowserRouter([
     {
@@ -46,6 +48,8 @@ export default function App() {
   ]);
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
+
       <RouterProvider router={myRouter} />
     </div>
   );
