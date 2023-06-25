@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import AddExpenseForm from "./AddExpenseForm";
 import ExpenseShowTable from "./ExpenseShowTable";
 import { useState } from "react";
@@ -8,9 +8,12 @@ import Modal from "../../../Modal";
 import { themeAction } from "../../../store/themeReducer";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import AuthCtx from "../../context/AuthContext";
 
 const Layout = () => {
   const activatedStatus = Boolean(localStorage.getItem("premium"));
+  const data = useContext(AuthCtx);
+  console.log(" email", );
 
   const [showEditButton, setShowEditButton] = useState(false);
   const dispatch = useDispatch();
@@ -34,9 +37,10 @@ const Layout = () => {
 
   useEffect(() => {
     fetch(
-      "https://expensetracker-auth-3709f-default-rtdb.firebaseio.com/ExpenseData.json"
+      `https://expensetracker-auth-3709f-default-rtdb.firebaseio.com/ExpenseData.json?orderBy="email"&equalTo=${JSON.stringify(data.email|| localStorage.getItem('email'))}`
     ).then((res) => {
       res.json().then((data) => {
+        console.log("first",data)
         const updatedArray = [];
 
         for (let key in data) {

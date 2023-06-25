@@ -7,8 +7,11 @@ import Login from "./components/pages/Login";
 import Layout from "./components/pages/Dashboard/Layout";
 import Profile from "./components/pages/Profile/Profile";
 import ForgetPassword from "./components/pages/ForgetPassword";
+import { useContext, useEffect } from "react";
+import AuthCtx from "./components/context/AuthContext";
 
 export default function App() {
+
   const myRouter = createBrowserRouter([
     {
       path: "/",

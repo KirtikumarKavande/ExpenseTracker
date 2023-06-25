@@ -6,11 +6,10 @@ import { authActions } from "../../store/AuthReducer";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const dispatch=useDispatch()
-         
+  const dispatch = useDispatch();
+
   const ctxData = useContext(AuthCtx);
 
-  
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -40,10 +39,12 @@ const Login = () => {
       res.json().then((data) => {
         if (data.idToken) {
           setIsSignIn(true);
-          dispatch(authActions.login(data.idToken))
+          dispatch(authActions.login(data.idToken));
           ctxData.getTokenFunc(data.idToken);
-          localStorage.setItem("token",data.idToken)
+          ctxData.getEmailFunc(data.email)
+          localStorage.setItem("token", data.idToken);
           localStorage.setItem("email", data.email);
+
           navigate("/dashboard");
         } else {
           setIsError(true);

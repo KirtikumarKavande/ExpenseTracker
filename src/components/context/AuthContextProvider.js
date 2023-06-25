@@ -4,17 +4,17 @@ import AuthCtx from "./AuthContext";
 const AuthContextProvider = (props) => {
   const localToken = localStorage.getItem("token");
   const img = localStorage.getItem("image");
-  const localEmail=localStorage.getItem("email");
+  const localEmail = localStorage.getItem("email");
   const localName = localStorage.getItem("name");
-  const isVerifiedEmail= localStorage.getItem('verifiedEmail')
-  
+  const isVerifiedEmail = localStorage.getItem("verifiedEmail");
+
   const [token, setToken] = useState(localToken);
+  const[email,setEmail]=useState('')
   const [profileInfo, setProfileInfo] = useState({
     // name:  "username",
     // imgUrl: "img/Profile.png" ,
     // email:"example@example.com",
     // verifiedEmail:false
-    
   });
   const getTokenFunc = (token) => {
     setToken(token);
@@ -28,10 +28,17 @@ const AuthContextProvider = (props) => {
 
     setProfileInfo(info);
   };
-
+  console.log("profileInfo", profileInfo);
+const getEmailFunc=(item)=>{
+  setEmail(item)
+}
   const obj = {
     token: token,
+
     getTokenFunc: getTokenFunc,
+    getEmailFunc:getEmailFunc,
+    email:email,
+
     profileInfo: profileInfo,
     getProfileInfo: getProfileInfo,
   };

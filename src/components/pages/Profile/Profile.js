@@ -36,6 +36,37 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    if (ctxData.token) {
+      fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCklomBWJ4kYkGnD5vZ-1cR3ubCbQ1dp7Y",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            idToken: ctxData.token,
+          }),
+        }
+      ).then((res) => {
+        res.json().then((payload) => {
+          console.log('payload',payload)
+
+          const newObj = {
+            name: payload?.users[0]?.displayName,
+            imgUrl: payload?.users[0]?.photoUrl,
+            email: payload?.users[0]?.email,
+            verifiedEmail: payload?.users[0]?.emailVerified,
+          };
+
+          ctxData.getProfileInfo(newObj);
+        });
+      });
+    }
+  }, []);
+
+
+  useEffect(() => {
     const id = setInterval(() => {
       setIsSuccess(false);
     }, [2000]);
