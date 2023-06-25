@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink,  useNavigate } from "react-router-dom";
 import AuthCtx from "./context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/AuthReducer";
@@ -63,18 +63,18 @@ const Navbar = () => {
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <Link to="/">Home</Link>
+            <NavLink style={({isActive})=>({color:isActive?'blue':''})} to="/">Home</NavLink>
 
-            {!!token && <Link to="/dashboard">Dashboard</Link>}
+            {!!token && <NavLink to="/dashboard" style={({isActive})=>({color:isActive?'blue':''})}>Dashboard</NavLink>}
 
-            {!!!token && <Link to="/signUp">SIGN UP</Link>}
+            {!!!token && <NavLink to="/signUp" style={({isActive})=>({color:isActive?'blue':''})}>SIGN UP</NavLink>}
 
-            {!!!token && <Link to="/login">Sign In</Link>}
+            {!!!token && <NavLink to="/login" style={({isActive})=>({color:isActive?'blue':''})}>Sign In</NavLink>}
 
-            {!!token && <Link to="/profile">Profile</Link>}
+            {!!token && <NavLink to="/profile"style={({isActive})=>({color:isActive?'blue':''})}>Profile</NavLink>}
             {!!token && (
               <button
-                className=" pr-1 pl-1 bg-red-500 rounded-md relative right-[23px] mr-6"
+                className=" pr-1 pl-1 bg-blue-400 rounded-md relative right-[23px] mr-6"
                 onClick={logOutFunc}
               >
                 Logout

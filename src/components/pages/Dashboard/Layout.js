@@ -127,8 +127,8 @@ localStorage.setItem("avatar",payload?.users[0]?.photoUrl)
     <div className="relative  min-h-screen">
       <div>
         {!data.profileInfo.verifiedEmail&&(
-          <div className="flex flex-row-reverse  text-sm   ">
-            <Link className="text-blue-600 space-x-2" to="/profile">Click</Link>Email is not Verified 
+          <div     className={`${darkTheme ?"text-white ":"text-black"} flex flex-row-reverse  `}     >
+            <Link className="text-blue-600 space-x-2" to="/profile">Click</Link>Email Is Not Verified please Verify
           </div>
         )}
 

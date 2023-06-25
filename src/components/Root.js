@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/AuthReducer";
@@ -27,10 +27,10 @@ const Root = () => {
     <div>
       <Navbar />
       {isMenuOpen && (
-        <div
-         
-          className="w-[10rem] h-screen border text-lg font-bold absolute right-0 top-5 shadow-lg bg-white z-30"
-        >
+        <div className="w-[10rem] h-screen border text-lg font-bold absolute right-0 top-5 shadow-lg bg-white z-30" onFocus={() => {
+          dispatch(toggleAction(true));
+        }}
+        onBlur={()=>{dispatch(toggleAction(false));}}>
           <button
             onClick={() => {
               dispatch(toggleAction(false));
@@ -40,19 +40,52 @@ const Root = () => {
             X
           </button>
           <ul className="flex flex-col justify-center items-center space-y-4 my-2">
-            <Link to="/">Home</Link>
+            <NavLink
+              style={({ isActive }) => ({ color: isActive ? "blue" : "" })}
+              to="/"
+            >
+              Home
+            </NavLink>
 
-            {!!token && <Link to="/dashboard">Dashboard</Link>}
+            {!!token && (
+              <NavLink
+                to="/dashboard"
+                style={({ isActive }) => ({ color: isActive ? "blue" : "" })}
+              >
+                Dashboard
+              </NavLink>
+            )}
 
-            {!!!token && <Link to="/login">Sign In</Link>}
+            {!!!token && (
+              <NavLink
+                to="/signUp"
+                style={({ isActive }) => ({ color: isActive ? "blue" : "" })}
+              >
+                SIGN UP
+              </NavLink>
+            )}
 
-            {!!!token && <Link to="/signUp">SIGN UP</Link>}
+            {!!!token && (
+              <NavLink
+                to="/login"
+                style={({ isActive }) => ({ color: isActive ? "blue" : "" })}
+              >
+                SIGN IN
+              </NavLink>
+            )}
 
-            {!!token && <Link to="/profile">Profile</Link>}
+            {!!token && (
+              <NavLink
+                to="/profile"
+                style={({ isActive }) => ({ color: isActive ? "blue" : "" })}
+              >
+                Profile
+              </NavLink>
+            )}
 
             {!!token && (
               <button
-                className=" pr-1 pl-1 bg-red-500 rounded-md relative  "
+                className=" pr-1 pl-1 bg-blue-500 rounded-md relative  "
                 onClick={logOutFunc}
               >
                 Logout
@@ -68,9 +101,10 @@ const Root = () => {
       >
         {/* <div> */}
 
-        <div className="z-10" onFocus={() => {
-            dispatch(toggleAction(false));
-          }}>
+        <div
+          className="z-10"
+          
+        >
           <Outlet />
         </div>
       </div>
